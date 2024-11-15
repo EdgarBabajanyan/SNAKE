@@ -1,7 +1,7 @@
-public class TetrisState {
+public class State {
     private boolean playing;
 
-    public TetrisState() {
+    public State() {
         playing = true;
     }
 

@@ -3,18 +3,18 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class JavaGUI extends JFrame {
-    private TetrisState state; // THIS is an Association with TetrisState
-    private TetrisBlocks blocks; // THIS is an Association with TetrisBlocks
-    private TetrisClock clock; // THIS is an Association with TetrisClock
-    private TetrisScoreCount scoreCount; // THIS is an Association with TetrisScoreCount
+    private State state; // THIS is an Association with TetrisState
+    private PlayerBlock player; // THIS is an Association with TetrisBlocks
+    private Collectable collectable; // THIS is an Association with TetrisClock
+    private ScoreCount scoreCount; // THIS is an Association with TetrisScoreCount
 
     public JavaGUI() {
-        state = new TetrisState();
-        blocks = new TetrisBlocks();
-        scoreCount = new TetrisScoreCount();
-        clock = new TetrisClock(this, blocks, state, scoreCount); // This Passes references  also an Association
+        state = new State();
+        player = new PlayerBlock();
+        scoreCount = new ScoreCount();
+        collectable = new Collectable();
 
-        setTitle("Tetris Game");
+        setTitle("Block Game");
         setSize(400, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
@@ -28,13 +28,13 @@ public class JavaGUI extends JFrame {
         add(sidePanel, BorderLayout.EAST);
 
         // Start game clock
-        clock.start();
+        //clock.start();
 
         // Key listener for block movement
         addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent e) {
                 if (state.isPlaying()) {
-                    blocks.moveBlock(e.getKeyCode());
+                    player.moveBlock(e.getKeyCode());
                     repaint();
                 }
             }
@@ -49,7 +49,8 @@ public class JavaGUI extends JFrame {
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
             if (state.isPlaying()) {
-                blocks.drawBlocks(g); // This Draws current blocks
+                player.drawBlocks(g); // This Draws current blocks
+                collectable.drawBlocks(g);
             } else {
                 g.setColor(Color.RED);
                 g.setFont(new Font("Arial", Font.BOLD, 30));
@@ -61,7 +62,7 @@ public class JavaGUI extends JFrame {
     // This is our amazing tetris internal class for side panel to display score and timer
     private class SidePanel extends JPanel {
         public SidePanel() {
-            setPreferredSize(new Dimension(150, 800));
+            setPreferredSize(new Dimension(110, 800));
             setBackground(Color.LIGHT_GRAY);
             setLayout(new GridLayout(2, 1));
 
@@ -79,7 +80,7 @@ public class JavaGUI extends JFrame {
             timerPanel.setBackground(Color.LIGHT_GRAY);
             JLabel timerLabel = new JLabel("Timer: ");
             JLabel timerValue = new JLabel("0");
-            clock.setTimerLabel(timerValue);
+            //clock.setTimerLabel(timerValue);
             timerPanel.add(timerLabel);
             timerPanel.add(timerValue);
 
