@@ -44,7 +44,14 @@ public class Collectable {
 
         public int getWidth() { return width; }
         public int getHeight() { return height; }
+
+        public void Respawn() {
+            setX(400);
+            setY(500);
+        }
     }
+
+ 
 
     // Inner class for color properties
     public class BlockColor {

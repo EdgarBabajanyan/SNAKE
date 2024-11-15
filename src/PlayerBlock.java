@@ -38,6 +38,7 @@ public class PlayerBlock extends Block {
                         System.out.println("Nearing X");
                         if (Math.abs(Collectable.CollectablePosy - shape.getY()) < 30) {
                             ScoreCount.addScore(10);
+                            Collectable.BlockShape.Respawn();
                         }
                     }
 
